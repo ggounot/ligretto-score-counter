@@ -4,7 +4,7 @@
   export let playerColor: PlayerColor;
   export let playerName: string;
   export let stackCards: number = 0;
-  export let centerCards: number = 0;
+  export let tableCards: number = 0;
 </script>
 
 <div class={`card-compact ${playerColorBg[playerColor]}`}>
@@ -31,18 +31,18 @@
               class="w-12 text-center"
             /></td
           ><td>{stackCards * -2}</td><td rowspan="2" class="text-4xl"
-            >{stackCards * -2 + centerCards}</td
+            >{stackCards * -2 + tableCards}</td
           ></tr
         ><tr
           ><th scope="row">Table</th><td
             ><input
               type="number"
               min="0"
-              bind:value={centerCards}
+              bind:value={tableCards}
               name="center-cards"
               class="w-12 text-center"
             /></td
-          ><td>{centerCards}</td></tr
+          ><td>{tableCards}</td></tr
         ></tbody
       >
     </table>
