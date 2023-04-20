@@ -5,6 +5,7 @@
   import { globalHistory } from "svelte-routing/src/history";
 
   import Home from "./lib/Home.svelte";
+  import NewGame from "./lib/NewGame.svelte";
 
   export let url = "";
 
@@ -37,5 +38,6 @@
   </header>
   <main class="m-4">
     <Route path="/"><Home /></Route>
+    <Route path="/game/new"><NewGame /></Route>
   </main>
 </Router>
