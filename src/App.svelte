@@ -6,6 +6,7 @@
 
   import Home from "./lib/Home.svelte";
   import NewGame from "./lib/NewGame.svelte";
+  import Game from "./lib/Game.svelte";
 
   export let url = "";
 
@@ -39,5 +40,8 @@
   <main class="m-4">
     <Route path="/"><Home /></Route>
     <Route path="/game/new"><NewGame /></Route>
+    <Route path="/game/:id" let:params
+      ><Game gameId={parseInt(params.id)} /></Route
+    >
   </main>
 </Router>
