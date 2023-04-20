@@ -4,7 +4,7 @@
   import { Router, Link, Route } from "svelte-routing";
   import { globalHistory } from "svelte-routing/src/history";
 
-  import GameList from "./lib/GameList.svelte";
+  import Home from "./lib/Home.svelte";
 
   export let url = "";
 
@@ -35,7 +35,7 @@
       {/if}
     </nav>
   </header>
-  <main>
-    <Route path="/"><GameList /></Route>
+  <main class="m-4">
+    <Route path="/"><Home /></Route>
   </main>
 </Router>
