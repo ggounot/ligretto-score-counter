@@ -2,12 +2,12 @@
   import { playerColorBg } from "../constants";
 
   export let player: Player;
-  export let stackCards: number = 0;
-  export let tableCards: number = 0;
+  export let roundPlayerScore: RoundPlayerScore;
 
-  $: stackPoints = stackCards * -2;
-  $: tablePoints = tableCards;
-  $: totalPoints = stackPoints + tablePoints;
+  $: roundPlayerScore.stackPoints = roundPlayerScore.stackCards * -2;
+  $: roundPlayerScore.tablePoints = roundPlayerScore.tableCards;
+  $: roundPlayerScore.score =
+    roundPlayerScore.stackPoints + roundPlayerScore.tablePoints;
 </script>
 
 <div class={`card-compact ${playerColorBg[player.color]}`}>
@@ -29,23 +29,24 @@
             ><input
               type="number"
               min="0"
-              bind:value={stackCards}
+              bind:value={roundPlayerScore.stackCards}
               name="stack-cards"
               class="w-12 text-center"
             /></td
-          ><td>{stackPoints}</td><td rowspan="2" class="text-4xl"
-            >{totalPoints}</td
+          ><td>{roundPlayerScore.stackPoints}</td><td
+            rowspan="2"
+            class="text-4xl">{roundPlayerScore.score}</td
           ></tr
         ><tr
           ><th scope="row">Table</th><td
             ><input
               type="number"
               min="0"
-              bind:value={tableCards}
+              bind:value={roundPlayerScore.tableCards}
               name="center-cards"
               class="w-12 text-center"
             /></td
-          ><td>{tablePoints}</td></tr
+          ><td>{roundPlayerScore.tablePoints}</td></tr
         ></tbody
       >
     </table>
