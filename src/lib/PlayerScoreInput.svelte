@@ -1,8 +1,7 @@
 <script lang="ts">
   import { playerColorBg } from "../constants";
 
-  export let playerColor: PlayerColor;
-  export let playerName: string;
+  export let player: Player;
   export let stackCards: number = 0;
   export let tableCards: number = 0;
 
@@ -11,10 +10,10 @@
   $: totalPoints = stackPoints + tablePoints;
 </script>
 
-<div class={`card-compact ${playerColorBg[playerColor]}`}>
+<div class={`card-compact ${playerColorBg[player.color]}`}>
   <div class="card-body">
     <h2 class="card-title">
-      {playerName}
+      {player.name}
     </h2>
     <table class="text-center">
       <thead
