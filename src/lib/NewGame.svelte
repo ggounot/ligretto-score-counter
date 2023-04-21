@@ -35,10 +35,6 @@
       }
     }
 
-    if (errors.length > 0) {
-      errorModalOpen = true;
-    }
-
     // Check color duplicate
     const selectedColors = new Set();
     for (let player of players) {
@@ -47,6 +43,10 @@
         break;
       }
       selectedColors.add(player.color);
+    }
+
+    if (errors.length > 0) {
+      errorModalOpen = true;
     }
   }
 
