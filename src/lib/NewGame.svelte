@@ -1,6 +1,9 @@
 <script lang="ts">
   import { navigate } from "svelte-routing";
-  import { games } from "../stores/games";
+
+  import type { Game } from "../types";
+  import { createGame } from "../database";
+
   import ErrorModal from "./ErrorModal.svelte";
 
   const colors = [
@@ -50,7 +53,7 @@
     }
   }
 
-  function startGame() {
+  async function startGame() {
     // Check errors
     checkErrors();
     if (errors.length > 0) {
@@ -61,15 +64,14 @@
     const game: Game = {
       date: new Date(),
       players: players.map((player, i) => ({ id: i.toString(), ...player })),
-      rounds: [],
-      score: players.map((_, i) => ({ playerId: i.toString(), score: 0 })),
+      score: Object.fromEntries(players.map((_, i) => [i.toString(), 0])),
     };
 
     // Store game object
-    games.set([...$games, game]);
+    const gameKey = await createGame(game);
 
     // Redirect to game page
-    navigate(`/game/${$games.length - 1}`, { replace: true });
+    navigate(`/game/${gameKey}`, { replace: true });
   }
 </script>
 

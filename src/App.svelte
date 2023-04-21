@@ -40,8 +40,8 @@
   <main class="m-4">
     <Route path="/"><Home /></Route>
     <Route path="/game/new"><NewGame /></Route>
-    <Route path="/game/:id" let:params
-      ><Game gameId={parseInt(params.id)} /></Route
+    <Route path="/game/:gameKey" let:params
+      ><Game gameKey={parseInt(params.gameKey)} /></Route
     >
   </main>
 </Router>

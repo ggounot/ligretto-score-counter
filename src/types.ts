@@ -1,10 +1,12 @@
-type PlayerId = string;
+import type { DBSchema } from "idb";
 
-type PlayerColor = "orange" | "blue" | "green" | "yellow";
+export type PlayerId = string;
 
-type Player = { id: PlayerId; name: string; color: PlayerColor };
+export type PlayerColor = "orange" | "blue" | "green" | "yellow";
 
-type RoundPlayerScore = {
+export type Player = { id: PlayerId; name: string; color: PlayerColor };
+
+export type RoundPlayerScore = {
   stackCards: number;
   tableCards: number;
   stackPoints: number;
@@ -12,15 +14,27 @@ type RoundPlayerScore = {
   score: number;
 };
 
-type Round = Record<PlayerId, RoundPlayerScore>;
+export type Round = {
+  gameKey: number;
+  playerScores: Record<PlayerId, RoundPlayerScore>;
+};
 
-type GamePlayerScore = { playerId: PlayerId; score: number };
+export type GameScore = Record<PlayerId, number>;
 
-type GameScore = GamePlayerScore[];
-
-type Game = {
+export type Game = {
   date: Date;
   players: Player[];
-  rounds: Round[];
   score: GameScore;
 };
+
+export interface DatabaseSchema extends DBSchema {
+  game: {
+    key: number;
+    value: Game;
+  };
+  round: {
+    key: number;
+    value: Round;
+    indexes: { gameKey: number };
+  };
+}

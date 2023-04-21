@@ -1,34 +1,43 @@
 <script lang="ts">
-  import { games } from "../stores/games";
-  import RoundScoreModal from "./RoundScoreFormModal.svelte";
+  import { setContext } from "svelte";
 
-  export let gameId: number;
+  import { createRound, getGame } from "../database";
+  import type { Round } from "../types";
 
-  let roundScoreModalOpen = false;
+  import RoundScoreFormModal from "./RoundScoreFormModal.svelte";
 
-  $: game = $games[gameId];
+  export let gameKey: number;
 
-  function handleSaveRound(round: Round) {
-    game.rounds = [...game.rounds, round];
-    game.score.forEach((gamePlayerScore) => {
-      gamePlayerScore.score += round[gamePlayerScore.playerId].score;
-    });
-    games.set($games.map((g, i) => (i === gameId ? game : g)));
+  let roundScoreFormModalOpen = false;
+
+  setContext("gameKey", gameKey);
+
+  $: gamePromise = getGame(gameKey);
+
+  async function handleSaveRound(round: Round) {
+    return createRound(await gamePromise, round);
   }
 </script>
 
-<div class="flex justify-center">
-  <button class="btn-primary btn" on:click={() => (roundScoreModalOpen = true)}
-    >Add Round</button
-  >
-</div>
+{#await gamePromise}
+  <p>Loading game...</p>
+{:then game}
+  <div class="flex justify-center">
+    <button
+      class="btn-primary btn"
+      on:click={() => (roundScoreFormModalOpen = true)}>Add Round</button
+    >
+  </div>
 
-<!-- Condition makes the modal component mount/unmount
+  <!-- Condition makes the modal component mount/unmount
      and therefore reset its state. -->
-{#if roundScoreModalOpen}
-  <RoundScoreModal
-    players={game.players}
-    bind:open={roundScoreModalOpen}
-    onSave={handleSaveRound}
-  />
-{/if}
+  {#if roundScoreFormModalOpen}
+    <RoundScoreFormModal
+      {game}
+      bind:open={roundScoreFormModalOpen}
+      onSave={handleSaveRound}
+    />
+  {/if}
+{:catch error}
+  <p>Error while loading the game.</p>
+{/await}

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { playerColorBg } from "../constants";
+  import type { Player, RoundPlayerScore } from "../types";
 
   export let player: Player;
   export let roundPlayerScore: RoundPlayerScore;
