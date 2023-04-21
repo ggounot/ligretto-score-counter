@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext } from "svelte";
 
-  import { createRound, getGame } from "../database";
+  import { createRound, getGame, getGameRounds } from "../database";
   import type { Round } from "../types";
 
   import RoundScoreFormModal from "./RoundScoreFormModal.svelte";
@@ -13,6 +13,7 @@
   setContext("gameKey", gameKey);
 
   $: gamePromise = getGame(gameKey);
+  $: gameRoundsPromise = getGameRounds(gameKey);
 
   async function handleSaveRound(round: Round) {
     return createRound(await gamePromise, round);
@@ -22,7 +23,42 @@
 {#await gamePromise}
   <p>Loading game...</p>
 {:then game}
-  <div class="flex justify-center">
+  {#await gameRoundsPromise}
+    <p>Loading rounds...</p>
+  {:then gameRounds}
+    <table class="table-compact table w-full">
+      <thead>
+        <tr>
+          <th />
+          {#each game.players as player}
+            <th scope="col" class="text-center">{player.name}</th>
+          {/each}
+        </tr>
+      </thead>
+      <tbody>
+        {#each gameRounds as round, i}
+          <tr class="hover">
+            <th scope="row">Round {i + 1}</th>
+            {#each game.players as player}
+              <td class="text-center">{round.playerScores[player.id].score}</td>
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
+      <tfoot>
+        <tr
+          ><th>Total</th>
+          {#each game.players as player}
+            <td class="text-center">{game.score[player.id]}</td>
+          {/each}
+        </tr>
+      </tfoot>
+    </table>
+  {:catch error}
+    <p>Error while loading the rounds.</p>
+  {/await}
+
+  <div class="mt-4 flex justify-center">
     <button
       class="btn-primary btn"
       on:click={() => (roundScoreFormModalOpen = true)}>Add Round</button

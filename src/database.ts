@@ -47,3 +47,7 @@ export async function updateRound(roundKey: number, round: Round) {
 export async function getRound(roundKey: number) {
   return (await db).get("round", roundKey);
 }
+
+export async function getGameRounds(gameKey: number) {
+  return (await db).getAllFromIndex("round", "gameKey", gameKey);
+}
