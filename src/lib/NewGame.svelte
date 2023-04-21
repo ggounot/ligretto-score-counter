@@ -60,9 +60,9 @@
     // Create game object
     const game: Game = {
       date: new Date(),
-      players: players.map((player, i) => ({ id: i, ...player })),
+      players: players.map((player, i) => ({ id: i.toString(), ...player })),
       rounds: [],
-      score: players.map((_, i) => ({ playerId: i, score: 0 })),
+      score: players.map((_, i) => ({ playerId: i.toString(), score: 0 })),
     };
 
     // Store game object

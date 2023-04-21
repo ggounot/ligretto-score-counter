@@ -1,4 +1,4 @@
-type PlayerId = number;
+type PlayerId = string;
 
 type PlayerColor = "orange" | "blue" | "green" | "yellow";
 
