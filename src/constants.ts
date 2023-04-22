@@ -8,3 +8,6 @@ export const playerColorBg: Record<PlayerColor, string> = {
   green: "bg-[#6a7378]",
   yellow: "bg-[#e3ab16]",
 } as const;
+
+export const maxStackCards = 10;
+export const maxTableCards = 37;

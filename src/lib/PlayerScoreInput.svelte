@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { playerColorBg } from "../constants";
+  import { maxStackCards, maxTableCards, playerColorBg } from "../constants";
   import type { Player, RoundPlayerScore } from "../types";
 
   export let player: Player;
@@ -27,26 +27,26 @@
       <tbody
         ><tr
           ><th scope="row">Stack</th><td
-            ><input
-              type="number"
-              min="0"
-              bind:value={roundPlayerScore.stackCards}
-              name="stack-cards"
+            ><select
               class="w-12 text-center"
-            /></td
+              bind:value={roundPlayerScore.stackCards}
+              >{#each Array.from(Array(maxStackCards + 1).keys()) as n}<option
+                  >{n}</option
+                >{/each}</select
+            ></td
           ><td>{roundPlayerScore.stackPoints}</td><td
             rowspan="2"
             class="text-4xl">{roundPlayerScore.score}</td
           ></tr
         ><tr
           ><th scope="row">Table</th><td
-            ><input
-              type="number"
-              min="0"
-              bind:value={roundPlayerScore.tableCards}
-              name="center-cards"
+            ><select
               class="w-12 text-center"
-            /></td
+              bind:value={roundPlayerScore.tableCards}
+              >{#each Array.from(Array(maxTableCards + 1).keys()) as n}<option
+                  >{n}</option
+                >{/each}</select
+            ></td
           ><td>{roundPlayerScore.tablePoints}</td></tr
         ></tbody
       >
