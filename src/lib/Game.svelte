@@ -1,8 +1,8 @@
 <script lang="ts">
   import { setContext } from "svelte";
 
-  import { createRound, getGame, getGameRounds } from "../database";
-  import type { Round } from "../types";
+  import { makeGameStore, makeGameRoundsStore } from "../stores";
+  import type { RoundWithoutKey } from "../types";
 
   import RoundScoreFormModal from "./RoundScoreFormModal.svelte";
 
@@ -12,18 +12,18 @@
 
   setContext("gameKey", gameKey);
 
-  $: gamePromise = getGame(gameKey);
-  $: gameRoundsPromise = getGameRounds(gameKey);
+  let game = makeGameStore(gameKey);
+  let gameRounds = makeGameRoundsStore(gameKey);
 
-  async function handleSaveRound(round: Round) {
-    return createRound(await gamePromise, round);
+  async function handleSaveRound(round: RoundWithoutKey) {
+    gameRounds.addRound(round);
   }
 </script>
 
-{#await gamePromise}
+{#await $game}
   <p>Loading game...</p>
 {:then game}
-  {#await gameRoundsPromise}
+  {#await $gameRounds}
     <p>Loading rounds...</p>
   {:then gameRounds}
     <table class="table-compact table w-full">

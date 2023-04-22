@@ -6,6 +6,10 @@ export type PlayerColor = "orange" | "blue" | "green" | "yellow";
 
 export type Player = { id: PlayerId; name: string; color: PlayerColor };
 
+type AutoIncrementKey = number;
+export type GameKey = AutoIncrementKey;
+export type RoundKey = AutoIncrementKey;
+
 export type RoundPlayerScore = {
   stackCards: number;
   tableCards: number;
@@ -15,26 +19,60 @@ export type RoundPlayerScore = {
 };
 
 export type Round = {
-  gameKey: number;
+  key: RoundKey;
+  gameKey: GameKey;
   playerScores: Record<PlayerId, RoundPlayerScore>;
 };
+
+export type RoundWithoutKey = Omit<Round, "key">;
 
 export type GameScore = Record<PlayerId, number>;
 
 export type Game = {
+  key: GameKey;
   date: Date;
   players: Player[];
   score: GameScore;
 };
 
+export type GameWithoutKey = Omit<Game, "key">;
+
 export interface DatabaseSchema extends DBSchema {
   game: {
-    key: number;
+    key: GameKey;
     value: Game;
   };
   round: {
-    key: number;
+    key: RoundKey;
     value: Round;
-    indexes: { gameKey: number };
+    indexes: { gameKey: GameKey };
   };
+}
+
+type Subscription<T> = (value: T) => void;
+
+export type AllGamesSubscriptions = Set<Subscription<Promise<Game[]>>>;
+
+export type GameSubscriptions = Map<GameKey, Set<Subscription<Promise<Game>>>>;
+
+export type GameRoundsSubscriptions = Map<
+  GameKey,
+  Set<Subscription<Promise<Round[]>>>
+>;
+
+interface Store<T> {
+  subscribe: (subscription: Subscription<T>) => () => void;
+}
+
+export interface AllGamesStore extends Store<Promise<Game[]>> {
+  addGame(game: GameWithoutKey): Promise<GameKey>;
+}
+
+export interface GameStore extends Store<Promise<Game>> {
+  updateGame(gameKey: GameKey, game: Game): void;
+}
+
+export interface GameRoundsStore extends Store<Promise<Round[]>> {
+  addRound(round: RoundWithoutKey): Promise<RoundKey>;
+  updateRound(roundKey: RoundKey, round: Round): void;
 }

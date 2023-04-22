@@ -1,18 +1,23 @@
 <script lang="ts">
   import { getContext } from "svelte";
 
-  import type { Game, Round, RoundPlayerScore } from "../types";
+  import type {
+    Game,
+    Round,
+    RoundPlayerScore,
+    RoundWithoutKey,
+  } from "../types";
 
   import PlayerScoreInput from "./PlayerScoreInput.svelte";
 
   export let game: Game;
   export let defaultRoundValue: Round | undefined = undefined;
   export let open: boolean;
-  export let onSave: (round: Round) => void;
+  export let onSave: (round: RoundWithoutKey) => void;
 
   const gameKey = getContext<number>("gameKey");
 
-  function createRound(): Round {
+  function createRound(): RoundWithoutKey {
     const defaultRoundPlayerScore: RoundPlayerScore = {
       stackCards: 0,
       tableCards: 0,

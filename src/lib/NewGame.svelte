@@ -1,8 +1,8 @@
 <script lang="ts">
   import { navigate } from "svelte-routing";
 
-  import type { Game } from "../types";
-  import { createGame } from "../database";
+  import type { GameWithoutKey } from "../types";
+  import { allGames } from "../stores";
 
   import ErrorModal from "./ErrorModal.svelte";
 
@@ -61,14 +61,14 @@
     }
 
     // Create game object
-    const game: Game = {
+    const game: GameWithoutKey = {
       date: new Date(),
       players: players.map((player, i) => ({ id: i.toString(), ...player })),
       score: Object.fromEntries(players.map((_, i) => [i.toString(), 0])),
     };
 
     // Store game object
-    const gameKey = await createGame(game);
+    const gameKey = await allGames.addGame(game);
 
     // Redirect to game page
     navigate(`/game/${gameKey}`, { replace: true });
