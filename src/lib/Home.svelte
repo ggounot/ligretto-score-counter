@@ -15,7 +15,7 @@
       <h2 class=" text-lg font-bold">Previous games</h2>
       <ol class="menu menu-compact">
         {#each allGames.reverse() as game}
-          <li class="flex justify-between">
+          <li class="hover-bordered flex justify-between border-b-2">
             <Link
               class="flex flex-col items-start gap-0"
               to={`/game/${game.key}`}
