@@ -8,28 +8,29 @@
     <Link class="btn-primary btn" to="/game/new">New Game</Link>
   </div>
 
-  <h2 class=" text-lg font-bold">Previous games</h2>
-
   {#await $allGames}
     <p>Loading previous games...</p>
   {:then allGames}
-    <ol class="menu menu-compact">
-      {#each allGames.reverse() as game}
-        <li class="flex justify-between">
-          <Link
-            class="flex flex-col items-start gap-0"
-            to={`/game/${game.key}`}
-          >
-            <span class="text-base font-semibold"
-              >{game.players
-                .map((player) => `${player.name} (${game.score[player.id]})`)
-                .join(", ")}</span
+    {#if allGames.length > 0}
+      <h2 class=" text-lg font-bold">Previous games</h2>
+      <ol class="menu menu-compact">
+        {#each allGames.reverse() as game}
+          <li class="flex justify-between">
+            <Link
+              class="flex flex-col items-start gap-0"
+              to={`/game/${game.key}`}
             >
-            <span>{game.date.toLocaleString()}</span>
-          </Link>
-        </li>
-      {/each}
-    </ol>
+              <span class="text-base font-semibold"
+                >{game.players
+                  .map((player) => `${player.name} (${game.score[player.id]})`)
+                  .join(", ")}</span
+              >
+              <span>{game.date.toLocaleString()}</span>
+            </Link>
+          </li>
+        {/each}
+      </ol>
+    {/if}
   {:catch error}
     <p>Error while loading previous games.</p>
   {/await}
