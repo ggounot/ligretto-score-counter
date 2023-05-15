@@ -16,7 +16,7 @@
     <h2 class="card-title">
       {player.name}
     </h2>
-    <table class="text-center">
+    <table class="text-center text-lg">
       <thead
         ><tr
           ><th /><th scope="col">Cards</th><th scope="col">Points</th><th
