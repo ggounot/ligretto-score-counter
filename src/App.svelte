@@ -29,15 +29,21 @@
 </script>
 
 <Router {url}>
-  <header class="navbar justify-between">
-    <img src="/vite.svg" alt="Ligretto Score Counter" />
+  <header class="mb-4 flex items-center justify-between">
+    <img
+      class="h-16 w-auto object-contain"
+      src="/logo-header.png"
+      alt="Ligretto Score Counter"
+      height="105"
+      width="395"
+    />
     <nav>
       {#if backButton}
-        <Link class="btn-ghost btn-sm btn" to="/">Back to Game List</Link>
+        <Link class="btn-ghost btn" to="/">Back</Link>
       {/if}
     </nav>
   </header>
-  <main class="m-4">
+  <main>
     <Route path="/"><Home /></Route>
     <Route path="/game/new"><NewGame /></Route>
     <Route path="/game/:gameKey" let:params
