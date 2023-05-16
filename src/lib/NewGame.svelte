@@ -125,7 +125,7 @@
     {/each}
   </ul>
 
-  <div class="flex justify-between">
+  <div class="flex justify-between gap-4">
     <button class="btn-outline btn" on:click|preventDefault={addPlayer}
       >Add Player</button
     >
