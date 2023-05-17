@@ -3,6 +3,7 @@
 
   import { makeGameStore, makeGameRoundsStore } from "../stores";
   import type { RoundWithoutKey } from "../types";
+  import { playerColorBg } from "../constants";
 
   import RoundScoreFormModal from "./RoundScoreFormModal.svelte";
 
@@ -31,7 +32,14 @@
         <tr>
           <th />
           {#each game.players as player}
-            <th scope="col" class="text-center">{player.name}</th>
+            <th scope="col" class="text-center"
+              ><div
+                class={`m-auto mr-1 inline-block h-4 w-4 rounded-full align-sub ${
+                  playerColorBg[player.color]
+                }`}
+              />
+              {player.name}</th
+            >
           {/each}
         </tr>
       </thead>
