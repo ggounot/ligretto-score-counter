@@ -2,7 +2,19 @@ import type { DBSchema } from "idb";
 
 export type PlayerId = string;
 
-export type PlayerColor = "orange" | "blue" | "green" | "yellow";
+export type PlayerColor =
+  | "gray"
+  | "red"
+  | "orange"
+  | "yellow"
+  | "lime"
+  | "green"
+  | "cyan"
+  | "blue"
+  | "purple"
+  | "pink"
+  | "brown"
+  | "emerald";
 
 export type Player = { id: PlayerId; name: string; color: PlayerColor };
 
