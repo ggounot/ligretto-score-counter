@@ -27,41 +27,45 @@
   {#await $gameRounds}
     <p>Loading rounds...</p>
   {:then gameRounds}
-    <table class="table-compact table w-full">
-      <thead>
-        <tr>
-          <th />
-          {#each game.players as player}
-            <th scope="col" class="text-center"
-              ><div
-                class={`m-auto mr-1 inline-block h-4 w-4 rounded-full align-sub ${
-                  playerColorBg[player.color]
-                }`}
-              />
-              {player.name}</th
-            >
-          {/each}
-        </tr>
-      </thead>
-      <tbody>
-        {#each gameRounds as round, i}
-          <tr class="hover">
-            <th scope="row">Round {i + 1}</th>
+    <div class="overflow-x-scroll">
+      <table class="table-compact table w-full">
+        <thead>
+          <tr>
+            <th />
             {#each game.players as player}
-              <td class="text-center">{round.playerScores[player.id].score}</td>
+              <th scope="col" class="text-center"
+                ><div
+                  class={`m-auto mr-1 inline-block h-4 w-4 rounded-full align-sub ${
+                    playerColorBg[player.color]
+                  }`}
+                />
+                {player.name}</th
+              >
             {/each}
           </tr>
-        {/each}
-      </tbody>
-      <tfoot>
-        <tr
-          ><th>Total</th>
-          {#each game.players as player}
-            <td class="text-center text-lg">{game.score[player.id]}</td>
+        </thead>
+        <tbody>
+          {#each gameRounds as round, i}
+            <tr class="hover">
+              <th scope="row">Round {i + 1}</th>
+              {#each game.players as player}
+                <td class="text-center"
+                  >{round.playerScores[player.id].score}</td
+                >
+              {/each}
+            </tr>
           {/each}
-        </tr>
-      </tfoot>
-    </table>
+        </tbody>
+        <tfoot>
+          <tr
+            ><th>Total</th>
+            {#each game.players as player}
+              <td class="text-center text-lg">{game.score[player.id]}</td>
+            {/each}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   {:catch error}
     <p>Error while loading the rounds.</p>
   {/await}
