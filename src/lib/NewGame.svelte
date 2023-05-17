@@ -5,22 +5,30 @@
   import { allGames } from "../stores";
 
   import ErrorModal from "./ErrorModal.svelte";
-
-  const colors = [
-    { name: "Blue", color: "blue" },
-    { name: "Green", color: "green" },
-    { name: "Orange", color: "orange" },
-    { name: "Yellow", color: "yellow" },
-  ];
+  import ColorSelect from "./ColorSelect.svelte";
+  import { orderedColors } from "../constants";
 
   const playerTemplate = { name: "", color: undefined };
 
-  let players = [{ ...playerTemplate }, { ...playerTemplate }];
+  let players = [
+    { ...playerTemplate, color: orderedColors[0] },
+    { ...playerTemplate, color: orderedColors[1] },
+  ];
   let errors = [];
   let errorModalOpen = false;
 
+  function getFirstUnusedColor() {
+    const usedColors = new Set(players.map((player) => player.color));
+    for (const color of orderedColors) {
+      if (!usedColors.has(color)) {
+        return color;
+      }
+    }
+  }
+
   function addPlayer() {
-    players = [...players, { ...playerTemplate }];
+    const color = getFirstUnusedColor();
+    players = [...players, { ...playerTemplate, color }];
   }
 
   function deletePlayer(playerIndex) {
@@ -91,15 +99,7 @@
         />
 
         <!-- Color selector -->
-        <select
-          class="select-bordered select"
-          name="color"
-          bind:value={player.color}
-        >
-          {#each colors as { name, color }}
-            <option value={color}>{name}</option>
-          {/each}
-        </select>
+        <ColorSelect bind:value={player.color} />
 
         <!-- Delete button -->
         <button
