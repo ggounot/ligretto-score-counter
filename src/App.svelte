@@ -30,13 +30,15 @@
 
 <Router {url}>
   <header class="mb-4 flex items-center justify-between">
-    <img
-      class="h-16 w-auto object-contain"
-      src="/logo-header.png"
-      alt="Ligretto Score Counter"
-      height="105"
-      width="395"
-    />
+    <Link to="/"
+      ><img
+        class="h-16 w-auto object-contain"
+        src="/logo-header.png"
+        alt="Ligretto Score Counter"
+        height="105"
+        width="395"
+      /></Link
+    >
     <nav>
       {#if backButton}
         <Link class="btn-ghost btn" to="/">Back</Link>
