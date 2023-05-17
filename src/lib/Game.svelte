@@ -57,7 +57,7 @@
         <tr
           ><th>Total</th>
           {#each game.players as player}
-            <td class="text-center">{game.score[player.id]}</td>
+            <td class="text-center text-lg">{game.score[player.id]}</td>
           {/each}
         </tr>
       </tfoot>
