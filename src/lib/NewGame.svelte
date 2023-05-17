@@ -6,14 +6,15 @@
 
   import ErrorModal from "./ErrorModal.svelte";
   import ColorSelect from "./ColorSelect.svelte";
-  import { orderedColors } from "../constants";
+  import { maxPlayers, minPlayers, orderedColors } from "../constants";
 
   const playerTemplate = { name: "", color: undefined };
 
-  let players = [
-    { ...playerTemplate, color: orderedColors[0] },
-    { ...playerTemplate, color: orderedColors[1] },
-  ];
+  let players = Array.from(Array(minPlayers).keys()).map((i) => ({
+    ...playerTemplate,
+    color: orderedColors[i],
+  }));
+
   let errors = [];
   let errorModalOpen = false;
 
@@ -126,13 +127,16 @@
   </ul>
 
   <div class="flex justify-between gap-4">
-    <button class="btn-outline btn" on:click|preventDefault={addPlayer}
-      >Add Player</button
+    <button
+      class="btn-outline btn"
+      on:click|preventDefault={addPlayer}
+      disabled={players.length >= maxPlayers}>Add Player</button
     >
     <button
       type="submit"
       class="btn-primary btn"
-      on:click|preventDefault={startGame}>Start Game</button
+      on:click|preventDefault={startGame}
+      disabled={players.length < minPlayers}>Start Game</button
     >
   </div>
 </form>

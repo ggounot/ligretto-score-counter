@@ -47,5 +47,8 @@ export const playerColorBg: Record<PlayerColor, string> = {
   emerald: "bg-emerald-500",
 } as const;
 
+export const minPlayers = 2;
+export const maxPlayers = orderedColors.length;
+
 export const maxStackCards = 10;
 export const maxTableCards = 37;
