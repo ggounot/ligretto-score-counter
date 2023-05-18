@@ -33,7 +33,7 @@
     <Link to="/"
       ><img
         class="h-16 w-auto object-contain"
-        src="/logo-header.png"
+        src="/logo.webp"
         alt="Ligretto Score Counter"
         height="105"
         width="395"
