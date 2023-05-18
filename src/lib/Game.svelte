@@ -6,6 +6,7 @@
   import { playerColorBg } from "../constants";
 
   import RoundScoreFormModal from "./RoundScoreFormModal.svelte";
+  import Ranking from "./Ranking.svelte";
 
   export let gameKey: number;
 
@@ -69,6 +70,11 @@
   {:catch error}
     <p>Error while loading the rounds.</p>
   {/await}
+
+  <div class="my-4">
+    <span class="font-semibold">Ranking:</span>
+    <Ranking {game} />
+  </div>
 
   <div class="mt-4 flex justify-center">
     <button
