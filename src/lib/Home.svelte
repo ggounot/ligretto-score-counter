@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Link } from "svelte-routing";
   import { allGames } from "../stores";
+  import Ranking from "./Ranking.svelte";
 </script>
 
 <div class="flex flex-col gap-4">
@@ -20,11 +21,7 @@
               class="flex flex-col items-start gap-0"
               to={`/game/${game.key}`}
             >
-              <span class="text-base font-semibold"
-                >{game.players
-                  .map((player) => `${player.name} (${game.score[player.id]})`)
-                  .join(", ")}</span
-              >
+              <span class="text-base font-semibold"><Ranking {game} /></span>
               <span>{game.date.toLocaleString()}</span>
             </Link>
           </li>
