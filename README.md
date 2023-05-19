@@ -1,5 +1,18 @@
-# [WIP] Ligretto Score Counter
+# Ligretto Score Counter
 
-This is a work-in-progress score counter app for the Ligretto card game.
+Score counter app for the Ligretto card game.
 
-It is developed using Svelte and Tailwind CSS and is intended to be a progressive web app.
+[**Try it now!**](https://ligretto-score-counter.com/)
+
+Created with the following tech stack:
+
+|               |                        |
+| ------------- | ---------------------- |
+| Language      | TypeScript             |
+| UI Framework  | Svelte                 |
+| CSS Framework | Tailwind CSS & daisyUI |
+| Database      | IndexedDB              |
+| Build Tool    | Vite                   |
+| PWA Framework | Vite PWA               |
+
+Don't hesitate to report any issue!
