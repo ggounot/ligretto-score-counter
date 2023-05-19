@@ -13,10 +13,12 @@
   }
 </script>
 
-<div class="dropdown dropdown-end">
+<div class="dropdown-end dropdown">
   <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
   <!-- svelte-ignore a11y-label-has-associated-control -->
-  <label tabindex="0" class={`btn m-1 w-24 ${playerColorBg[value]}`}
+  <label
+    tabindex="0"
+    class={`btn m-1 w-24 text-neutral-900 ${playerColorBg[value]}`}
     >{playerColorName[value]}</label
   >
   <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -28,6 +30,7 @@
       <li class={`${playerColorBg[color]} font-semibold text-primary-content`}>
         <!-- svelte-ignore a11y-invalid-attribute -->
         <a
+          class="text-neutral-900"
           href="javascript:void(0)"
           on:click|preventDefault={() => selectColor(color)}
           >{playerColorName[color]}</a

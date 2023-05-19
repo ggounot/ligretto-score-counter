@@ -11,7 +11,7 @@
     roundPlayerScore.stackPoints + roundPlayerScore.tablePoints;
 </script>
 
-<div class={`card-compact ${playerColorBg[player.color]}`}>
+<div class={`card-compact text-neutral-900 ${playerColorBg[player.color]}`}>
   <div class="card-body">
     <h2 class="card-title">
       {player.name}
@@ -28,7 +28,7 @@
         ><tr
           ><th scope="row">Stack</th><td
             ><select
-              class="w-12 text-center"
+              class="w-12 text-center text-base-content"
               bind:value={roundPlayerScore.stackCards}
               >{#each Array.from(Array(maxStackCards + 1).keys()) as n}<option
                   >{n}</option
@@ -41,7 +41,7 @@
         ><tr
           ><th scope="row">Table</th><td
             ><select
-              class="w-12 text-center"
+              class="w-12 text-center text-base-content"
               bind:value={roundPlayerScore.tableCards}
               >{#each Array.from(Array(maxTableCards + 1).keys()) as n}<option
                   >{n}</option
