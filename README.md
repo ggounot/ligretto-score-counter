@@ -16,7 +16,3 @@ Created with the following tech stack:
 | PWA Framework | Vite PWA               |
 
 Don't hesitate to report any issue!
-
-## Roadmap
-
-- Add dark mode
