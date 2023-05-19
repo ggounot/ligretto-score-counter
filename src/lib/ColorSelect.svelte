@@ -31,7 +31,7 @@
         <!-- svelte-ignore a11y-invalid-attribute -->
         <a
           class="text-neutral-900"
-          href="javascript:void(0)"
+          href="#"
           on:click|preventDefault={() => selectColor(color)}
           >{playerColorName[color]}</a
         >
