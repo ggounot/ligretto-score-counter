@@ -22,7 +22,12 @@
               to={`/game/${game.key}`}
             >
               <span class="text-base font-semibold"><Ranking {game} /></span>
-              <span>{game.date.toLocaleString()}</span>
+              <span
+                >{game.date.toLocaleString(undefined, {
+                  dateStyle: "full",
+                  timeStyle: "short",
+                })}</span
+              >
             </Link>
           </li>
         {/each}
