@@ -7,6 +7,7 @@
   import Home from "./lib/Home.svelte";
   import NewGame from "./lib/NewGame.svelte";
   import Game from "./lib/Game.svelte";
+  import DarkModeToggle from "./lib/DarkModeToggle.svelte";
 
   export let url = "";
 
@@ -39,11 +40,15 @@
         width="395"
       /></Link
     >
-    <nav>
+    <div class="flex">
       {#if backButton}
-        <Link class="btn-ghost btn" to="/">Back</Link>
+        <nav>
+          <Link class="btn-ghost btn" to="/">Back</Link>
+        </nav>
+        <div class="divider divider-horizontal" />
       {/if}
-    </nav>
+      <DarkModeToggle />
+    </div>
   </header>
   <main>
     <Route path="/"><Home /></Route>
