@@ -50,7 +50,7 @@
             <tr class="hover">
               <th scope="row">Round {i + 1}</th>
               {#each game.players as player}
-                <td class="text-center"
+                <td class="text-center text-lg"
                   >{round.playerScores[player.id].score}</td
                 >
               {/each}
@@ -71,7 +71,7 @@
     <p>Error while loading the rounds.</p>
   {/await}
 
-  <div class="my-4">
+  <div class="my-4 text-lg">
     <span class="font-semibold">Ranking:</span>
     <Ranking {game} />
   </div>
