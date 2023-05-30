@@ -27,6 +27,7 @@
     "vite-plugin-pwa": "^0.14.7"
   },
   "dependencies": {
+    "@sentry/svelte": "^7.53.1",
     "daisyui": "^2.51.6",
     "idb": "^7.1.1",
     "svelte-routing": "^1.8.9"
