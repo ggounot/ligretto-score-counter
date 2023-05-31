@@ -6,6 +6,9 @@ import * as Sentry from "@sentry/svelte";
 // Initialize the Sentry SDK here
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
+  release: `${import.meta.env.VITE_SENTRY_PROJECT}@${
+    import.meta.env.PACKAGE_VERSION
+  }`,
   integrations: [new Sentry.BrowserTracing({}), new Sentry.Replay()],
 
   // Set tracesSampleRate to 1.0 to capture 100%
