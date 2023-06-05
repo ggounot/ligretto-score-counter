@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.ligretto_score_counter.twa",
+        "sha256_cert_fingerprints": ["E3:76:A7:D9:E6:98:BF:5E:91:61:E0:71:B1:23:C0:E2:6D:34:99:F8:DF:E6:F9:2C:6D:66:C3:14:55:23:6B:F5"]
+      }
+    }]
