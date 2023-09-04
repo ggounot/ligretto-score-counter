@@ -1,7 +1,5 @@
 import { openDB } from "idb";
 
-import * as Sentry from "@sentry/svelte";
-
 import { databaseName } from "./constants";
 import type {
   AllGamesStore,
@@ -78,13 +76,6 @@ async function getAllGamesQuery() {
   const allGames = await (await db).getAll("game");
   allGamesRetrieved = true;
   for (let game of allGames) {
-    if (!game.key) {
-      Sentry.captureMessage(
-        `getAllGamesQuery() - detected invalid game.key (${
-          game.key
-        }). ${JSON.stringify(allGames)}`
-      );
-    }
     cachedGames.set(game.key, game);
   }
   return allGames;
@@ -98,25 +89,11 @@ async function getGameQuery(gameKey: GameKey) {
 
   // Otherwise, fetch it, cache it and return it
   const game = await (await db).get("game", gameKey);
-  if (!game.key) {
-    Sentry.captureMessage(
-      `getGamesQuery() - detected invalid game.key (${
-        game.key
-      }). ${JSON.stringify(game)}`
-    );
-  }
   cachedGames.set(gameKey, game);
   return game;
 }
 
 async function getGameRoundsQuery(gameKey: GameKey) {
-  if (!gameKey) {
-    Sentry.captureMessage(
-      `getGameRoundsQuery() - detected invalid gameKey (${gameKey}). ${JSON.stringify(
-        allGames
-      )}`
-    );
-  }
   // If the game rounds are already cached, return them directly
   if (cachedGameRounds.has(gameKey)) {
     return cachedGameRounds.get(gameKey);
@@ -135,13 +112,6 @@ async function getGameRoundsQuery(gameKey: GameKey) {
 async function createGameMutation(game: GameWithoutKey) {
   // Create game
   const gameKey = await (await db).add("game", game as Game);
-  if (!gameKey) {
-    Sentry.captureMessage(
-      `createGameMutation() - detected invalid gameKey (${gameKey}). ${JSON.stringify(
-        game
-      )}`
-    );
-  }
   // Cache game
   cachedGames.set(gameKey, { key: gameKey, ...game });
   // Notify subscriptions
@@ -151,13 +121,6 @@ async function createGameMutation(game: GameWithoutKey) {
 }
 
 async function updateGameMutation(gameKey: GameKey, game: Game) {
-  if (!gameKey) {
-    Sentry.captureMessage(
-      `updateGameMutation() - detected invalid gameKey (${gameKey}). ${JSON.stringify(
-        game
-      )}`
-    );
-  }
   // Update game
   await (await db).put("game", game, gameKey);
   // Cache game
@@ -170,13 +133,6 @@ async function updateGameMutation(gameKey: GameKey, game: Game) {
 async function createRoundMutation(round: RoundWithoutKey) {
   // Create round
   const roundKey = await (await db).add("round", round as Round);
-  if (!round.gameKey) {
-    Sentry.captureMessage(
-      `createRoundMutation() - detected invalid gameKey (${
-        round.gameKey
-      }). ${JSON.stringify(round)}`
-    );
-  }
   // Cache round
   const oldCachedGameRounds = cachedGameRounds.get(round.gameKey) || [];
   const newGameRounds = [...oldCachedGameRounds, { key: roundKey, ...round }];
@@ -202,13 +158,6 @@ async function createRoundMutation(round: RoundWithoutKey) {
 async function updateRoundMutation(roundKey: RoundKey, round: Round) {
   // Update round
   await (await db).put("round", round, roundKey);
-  if (!round.gameKey) {
-    Sentry.captureMessage(
-      `updateRoundMutation() - detected invalid gameKey (${
-        round.gameKey
-      }). ${JSON.stringify(round)}`
-    );
-  }
   // Cache round
   const oldCachedGameRounds = cachedGameRounds.get(round.gameKey) || [];
   const newGameRounds = oldCachedGameRounds.map((round) => round);
@@ -255,11 +204,6 @@ export const allGames: AllGamesStore = {
 // Game store factory
 
 export function makeGameStore(gameKey: GameKey): GameStore {
-  if (!gameKey) {
-    Sentry.captureMessage(
-      `makeGameStore() - detected invalid gameKey (${gameKey}).`
-    );
-  }
   return {
     subscribe(subscription) {
       // Get and return current game
@@ -287,11 +231,6 @@ export function makeGameStore(gameKey: GameKey): GameStore {
 // Game Rounds store factory
 
 export function makeGameRoundsStore(gameKey: GameKey): GameRoundsStore {
-  if (!gameKey) {
-    Sentry.captureMessage(
-      `makeGameRoundsStore() - detected invalid gameKey (${gameKey}).`
-    );
-  }
   return {
     subscribe(subscription) {
       // Get and return current game rounds
