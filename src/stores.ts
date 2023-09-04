@@ -73,12 +73,16 @@ async function getAllGamesQuery() {
   }
 
   // Otherwise, fetch them, cache them and return them
-  const allGames = await (await db).getAll("game");
-  allGamesRetrieved = true;
-  for (let game of allGames) {
-    cachedGames.set(game.key, game);
+  let cursor = await (await db).transaction("game").store.openCursor();
+
+  while (cursor) {
+    cachedGames.set(cursor.key, { ...cursor.value, key: cursor.key });
+    cursor = await cursor.continue();
   }
-  return allGames;
+
+  allGamesRetrieved = true;
+
+  return Array.from(cachedGames.values());
 }
 
 async function getGameQuery(gameKey: GameKey) {
