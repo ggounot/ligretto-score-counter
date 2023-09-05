@@ -90,6 +90,7 @@
     {#each players as player, i (player)}
       <li class="flex flex-row items-center gap-4">
         <!-- Name input -->
+        <!-- svelte-ignore a11y-autofocus -->
         <input
           class="input-bordered input w-full"
           type="text"
@@ -97,6 +98,7 @@
           placeholder="Name"
           bind:value={player.name}
           required
+          autofocus={i === 0}
         />
 
         <!-- Color selector -->
