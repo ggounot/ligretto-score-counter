@@ -71,12 +71,12 @@
     <p>Error while loading the rounds.</p>
   {/await}
 
-  <div class="my-4 text-lg">
+  <div class="my-10 text-lg">
     <span class="font-semibold">Ranking:</span>
     <Ranking {game} />
   </div>
 
-  <div class="mt-4 flex justify-center">
+  <div class="flex justify-center">
     <button
       class="btn-primary btn"
       on:click={() => (roundScoreFormModalOpen = true)}>Add Round</button

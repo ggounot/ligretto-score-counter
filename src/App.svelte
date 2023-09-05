@@ -30,7 +30,7 @@
 </script>
 
 <Router {url}>
-  <header class="mb-4 flex items-center justify-between">
+  <header class="mb-10 flex items-center justify-between">
     <Link to="/"
       ><img
         class="h-16 w-auto object-contain"
